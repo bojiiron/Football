@@ -1,0 +1,17 @@
+CREATE DATABASE koko
+ON PRIMARY (
+    NAME = 'koko',
+    FILENAME = 'C:\Users\Boji_\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\koko.mdf',
+    SIZE = 8MB,
+    FILEGROWTH = 64MB
+)
+LOG ON (
+    NAME = 'koko_log',
+    FILENAME = 'C:\Users\Boji_\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\koko_log.ldf',
+    SIZE = 8MB,
+    FILEGROWTH = 64MB
+);
+
+
+
+SELECT name, physical_name FROM sys.master_files

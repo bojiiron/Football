@@ -1,0 +1,51 @@
+Вида на проекта ми е: ASP.NET Core Web App (with example Asp.net razor pages content)
+Всички команди ги въвеждаме в PowerShell след като сме избрали пътя до ПРОЕКТА, а не само до Solution
+Пример: PS C:\Users\Dj\source\repos\RazorProblem19\RazorProblem19>  (и проекта и solution са ми с име RazorProblem19)
+
+All commands vs2022, .net 8
+
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter
+-- dotnet add package Microsoft.AspNetCore.OpenApi
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet tool install -g dotnet-aspnet-codegenerator
+dotnet-aspnet-codegenerator razorpage -dc Data.CatContext -m Models.Cat -udl -outDir Pages/Cat
+
+
+All commands vs2019, .net5
+dotnet add package Microsoft.EntityFrameworkCore -v 5.0
+dotnet add package Microsoft.EntityFrameworkCore.Tools -v 5.0
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer -v 5.0
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design -v 5.0
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite -v 5.0
+dotnet add package Microsoft.Extensions.Logging.Debug -v 5.0
+ВАЖНО:
+dotnet tool update -g dotnet-aspnet-codegenerator
+
+ОБЩО ЗА ДВЕТЕ ВЕРСИИ:
+
+Във файла:appsettings.json дописваме базата:
+ "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=CatsDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
+
+След правилно свързване системата сама променя данните по следния начин:
+"AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=CatsDb;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "CatContext": "Server=(localdb)\\mssqllocaldb;Database=CatContext-0ed04268-6a83-493b-8cc2-62f6a3ca00f4;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+
+В структурата на проекта включваме папка Models -> с основните класове, които се използват за проекта и за базата. След последното конфигуриране системата ще създаде
+контекстни файлове на базата на модела и ще създаде razor страници в посочена от нас папка, както и в посочена от нас папка ще създаде контекстните файлове.
+
+ПОСЛЕДНАТА ВАЖНА СТЪПКА Е:
+
+ dotnet-aspnet-codegenerator.exe razorpage -dc Data.CatContext -m Cat -udl -outDir Pages/Cat
+
+кОНТЕКСТНИТЕ ФАЙЛОВЕ ЩЕ СА В ПАПКА DATA, A RAZOR PAGES ->Pages/Cat
+
+
